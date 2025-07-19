@@ -1,8 +1,8 @@
 # RFC: Private Content in ATProto
 
-**RFC:** atproto-001
-**Author:** Dave Nash
-**Date:** July 19, 2025
+**RFC:** atproto-001  
+**Author:** Dave Nash  
+**Date:** July 19, 2025  
 **Version:** 0.1  
 **Status:** Draft
 

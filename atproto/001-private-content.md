@@ -6,6 +6,9 @@
 **Version:** 0.1  
 **Status:** Draft
 
+- RFC: Private Content in ATProto - [Codeberg](https://codeberg.org/davenash/rfcs/src/branch/main/atproto/001-private-content.md)
+- RFC: Private Content in ATProto - [GitHub](https://github.com/knasher/rfcs/blob/main/atproto/001-private-content.md)
+
 ## Summary
 
 This RFC proposes a mechanism for private content in ATProto by modifying the data flow between Personal Data Servers (PDSes) and AppViews. Instead of transmitting private content through the Firehose, PDSes would send metadata notifications for interested AppViews to receive, which can then fetch the actual content directly from the PDS using existing OAuth authentication.

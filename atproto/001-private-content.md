@@ -29,8 +29,8 @@ The current architecture broadcasts all content through the Firehose to all AppV
 
 1. **Content Creation**: User creates content marked as private on their PDS
 2. **Metadata Broadcast**: PDS sends metadata notification through Firehose (not the actual content)
-3. **Authorization Check**: AppView receives metadata and determines if it holds valid access tokens with relevant permissions for the content
-4. **Direct Fetch**: Authorized AppView fetches actual content directly from the PDS using OAuth
+3. **Authorisation Check**: AppView receives metadata and determines if it holds valid access tokens with relevant permissions for the content
+4. **Direct Fetch**: Authorised AppView fetches actual content directly from the PDS using OAuth
 5. **Content Handling**: AppView processes and displays content according to privacy settings
 
 ### Technical Implementation
@@ -71,13 +71,13 @@ The current architecture broadcasts all content through the Firehose to all AppV
 #### 3. AppView Integration
 
 - **Metadata Processing**: Listen for private content notifications on Firehose
-- **Authorization Check**: Check if the AppView holds valid access tokens with appropriate permissions for the user/content
+- **Authorisation Check**: Check if the AppView holds valid access tokens with appropriate permissions for the user/content
 - **Content Fetching**: Use existing OAuth tokens to fetch private content from origin PDS
 - **Caching Strategy**: Implement appropriate caching respecting privacy constraints
 
 #### 4. OAuth Integration and Scope Extensions
 
-The existing OAuth framework provides the foundation, but requires new scopes for explicit private content authorization:
+The existing OAuth framework provides the foundation, but requires new scopes for explicit private content authorisation:
 
 **New OAuth Scopes:**
 - `atproto:read:private` - General permission to access user's private content
@@ -86,15 +86,15 @@ The existing OAuth framework provides the foundation, but requires new scopes fo
 - `atproto:read:private:custom` - Access to custom privacy level content (may require additional parameters)
 - `atproto:write:private` - Permission to create and modify private content on user's behalf
 
-**Authorization Flow:**
-1. AppViews request appropriate private content scopes (both read and write) during user authorization
+**Authorisation Flow:**
+1. AppViews request appropriate private content scopes (both read and write) during user authorisation
 2. Users explicitly consent to sharing private content with the AppView and allowing it to create private content
 3. PDSes validate scope permissions before serving private content or accepting private content writes
 4. Tokens can be revoked to immediately cut off private content access
 
 **Scope Validation:**
 - PDSes must validate that requesting AppViews hold appropriate scopes before serving private content
-- Scopes should be granular enough to allow users to authorize different privacy levels separately
+- Scopes should be granular enough to allow users to authorise different privacy levels separately
 - Existing token refresh and revocation mechanisms work unchanged
 
 ### Privacy Levels
@@ -105,7 +105,7 @@ The existing OAuth framework provides the foundation, but requires new scopes fo
 
 ## Drawbacks
 
-- **Increased Complexity**: AppViews must implement additional fetching and authorization logic
+- **Increased Complexity**: AppViews must implement additional fetching and authorisation logic
 - **Performance Impact**: Direct PDS requests may be slower than Firehose consumption
 - **Trust Model**: AppViews must be trusted by users to handle private content appropriately and not redistribute it publicly
 - **Caching Challenges**: Private content caching becomes more complex to maintain privacy
@@ -113,7 +113,7 @@ The existing OAuth framework provides the foundation, but requires new scopes fo
 ## Alternatives
 
 ### Alternative 1: Encrypted Firehose Content
-Encrypt private content before broadcasting, with keys shared only to authorized AppViews.
+Encrypt private content before broadcasting, with keys shared only to authorised AppViews.
 - **Rejected because**: Key distribution is complex and doesn't scale well
 
 ### Alternative 2: Private Content Relays
@@ -146,7 +146,7 @@ Create separate relay networks for private content.
 
 ## Conclusion
 
-This proposal provides a privacy mechanism for ATProto that leverages existing OAuth infrastructure while maintaining the protocol's decentralized architecture. By using metadata notifications and direct fetching, users gain content privacy without sacrificing the benefits of federation.
+This proposal provides a privacy mechanism for ATProto that leverages existing OAuth infrastructure while maintaining the protocol's decentralised architecture. By using metadata notifications and direct fetching, users gain content privacy without sacrificing the benefits of federation.
 
 ## Feedback and Discussion
 
@@ -157,4 +157,4 @@ This RFC is open for community review and feedback. Key areas where input would 
 - Implementation complexity for AppView developers
 - Security and trust model considerations
 
-Please provide feedback through [Codeberg issues/discussions/etc.].
+Please provide feedback through [Codeberg or GitHub issues/discussions/etc.].
